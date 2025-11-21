@@ -36,7 +36,7 @@ export function addDatabaseTool(
     )
     .addFunctionTool(
       {
-        name: 'get_db_table_names',
+        name: 'get_db_tables',
         description: 'Get the database tables description.',
       },
       async (_: any, context: ButlerAi.AiService.Context) => {
