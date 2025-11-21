@@ -1,0 +1,51 @@
+{
+  "name": "@butler/web-react-chat",
+  "version": "1.0.0",
+  "description": "Butler web react chat functionality",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/es/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./style.css": {
+      "import": "./dist/es/index.css",
+      "require": "./dist/cjs/index.css"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@butler/web-ai": "workspace:*",
+    "classnames": "^2.5.1",
+    "github-markdown-css": "^5.8.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "rehype-raw": "^7.0.0",
+    "remark-breaks": "^4.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "globals": "^16.5.0",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "sass": "^1.94.0"
+  }
+}

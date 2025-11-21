@@ -1,0 +1,37 @@
+.ai-chart-messages {
+  min-height: 200px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+  flex: 1;
+
+  .ai-chart-user-message,
+  .ai-chart-assistant-message {
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+    align-self: flex-end;
+    max-width: 80%;
+  }
+
+  .ai-chart-assistant-message {
+    align-self: flex-start;
+
+    .is-running {
+      animation: cursor-blink 0.7s step-end infinite;
+      display: inline-block;
+      width: 0.8rem;
+      height: 2px;
+      background-color: #201b1b;
+    }
+  }
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}

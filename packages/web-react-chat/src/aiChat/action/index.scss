@@ -1,0 +1,67 @@
+.ai-chart-action {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+
+  border: 1px solid #dcdfe6;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
+
+  &:has(.ai-chart-action-input:focus) {
+    border-color: #409eff;
+  }
+
+  .ai-chart-action-input {
+    flex: 1;
+    border: none;
+    resize: none;
+    outline: none;
+    line-height: 1.2rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .ai-chart-action-button {
+    position: relative;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #409eff;
+    color: #fff;
+    cursor: pointer;
+    &:disabled {
+      background-color: #c0c4cc;
+      cursor: not-allowed;
+    }
+    &.is-loading {
+      background-color: #c0c4cc;
+      cursor: not-allowed;
+      &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        content: '';
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid #409eff;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: loading-spin 0.6s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes loading-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
