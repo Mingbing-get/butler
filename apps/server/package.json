@@ -1,0 +1,35 @@
+{
+  "name": "@butler/server",
+  "version": "1.0.0",
+  "description": "Example application using Butler packages",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon ./src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@butler/server-ai": "workspace:*",
+    "@butler/server-tool-database": "workspace:*",
+    "@koa/cors": "^5.0.0",
+    "@koa/router": "^14.0.0",
+    "dotenv": "^17.2.3",
+    "koa": "^3.1.1",
+    "koa-body": "^7.0.0",
+    "knex": "^3.1.0",
+    "mysql2": "^3.9.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.0",
+    "@types/koa": "^3.0.1",
+    "@types/koa__cors": "^5.0.1",
+    "@types/koa__router": "^12.0.5",
+    "@types/koa-router": "^7.4.9",
+    "ts-node": "^10.9.2",
+    "nodemon": "^3.1.11"
+  }
+}

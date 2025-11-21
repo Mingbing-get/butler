@@ -24,21 +24,9 @@
     "exactOptionalPropertyTypes": true,
     "baseUrl": ".",
     "paths": {
-      "@butler/*": ["packages/*/src"],
-      "@butler/core": ["packages/core/src"],
-      "@butler/utils": ["packages/utils/src"],
-      "@butler/types": ["packages/types/src"]
+      "@butler/*": ["packages/*/src"]
     }
   },
-  "include": [
-    "packages/*/src/**/*",
-    "apps/*/src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "**/*.test.ts",
-    "**/*.spec.ts"
-  ]
+  "include": ["packages/*/src/**/*", "apps/*/src/**/*", "vite.node.config.ts"],
+  "exclude": ["node_modules", "dist", "build", "**/*.test.ts", "**/*.spec.ts"]
 }
