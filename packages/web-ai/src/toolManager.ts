@@ -1,3 +1,4 @@
+import { z, ZodObject } from 'zod';
 import type { AIChat } from './type';
 
 export interface FunctionToolExecuteResult {
@@ -14,8 +15,17 @@ export type FunctionToolResult =
   | FunctionToolExecuteResult
   | FunctionToolRenderResult;
 
+export type WithZodParamsFunctionTool = Omit<
+  AIChat.FunctionTool,
+  'function'
+> & {
+  function: Omit<AIChat.FunctionTool['function'], 'parameters'> & {
+    parameters?: ZodObject<any>;
+  };
+};
+
 export class ToolManager {
-  private tools: AIChat.FunctionTool[] = [];
+  private tools: WithZodParamsFunctionTool[] = [];
   private toolInstance: Record<string, AIChat.FunctionToolInstance> = {};
   private waitExecute = new Map<
     string,
@@ -23,7 +33,7 @@ export class ToolManager {
   >();
 
   add(
-    func: AIChat.FunctionTool['function'],
+    func: WithZodParamsFunctionTool['function'],
     instance: AIChat.FunctionToolInstance
   ) {
     this.tools.push({
@@ -82,6 +92,22 @@ export class ToolManager {
     return this.tools.filter((tool) =>
       pickToolNames.includes(tool.function.name)
     );
+  }
+
+  getJsonSchemaTools(pickToolNames?: AIChat.FunctionTool.PluginName[]) {
+    const tools = this.getTools(pickToolNames);
+
+    return tools.map((tool) => {
+      const p = tool.function.parameters;
+
+      return {
+        ...tool,
+        function: {
+          ...tool.function,
+          parameters: p ? z.toJSONSchema(p) : undefined,
+        },
+      };
+    });
   }
 
   hasTool(name: string) {

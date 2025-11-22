@@ -1,11 +1,13 @@
 import { AIChatRender } from '@butler/web-react-chat';
 import { HttpTransporter } from '@butler/web-ai';
 import { addVChartTool } from '@butler/web-tool-vchart';
+import { addArcoFormTool } from '@butler/web-tool-arco';
 import '@butler/web-react-chat/style.css';
 
 import './App.scss';
 
 addVChartTool();
+addArcoFormTool();
 
 const baseUrl = 'http://localhost:3100';
 const httpTransporter = new HttpTransporter({

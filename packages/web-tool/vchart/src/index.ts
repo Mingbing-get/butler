@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { toolManager } from '@butler/web-ai';
 import RenderChart from './render';
 
@@ -20,39 +21,17 @@ export function addVChartTool() {
     {
       name: 'vChart',
       description: 'Render a chart using VChart',
-      parameters: {
-        type: 'object',
-        properties: {
-          spec: {
-            type: 'object',
-            description: 'The VChart spec',
-            properties: {
-              type: {
-                type: 'string',
-                description: 'The chart type',
-                enum: ['line', 'bar', 'area'],
-              },
-              xField: {
-                type: 'string',
-                description: 'The field name for x-axis',
-              },
-              yField: {
-                type: 'string',
-                description: 'The field name for y-axis',
-              },
-              data: {
-                type: 'object',
-                description: 'The data for the chart',
-                properties: {
-                  values: {
-                    type: 'array',
-                    description: 'The data values',
-                  },
-                },
-                required: ['values'],
-              },
-            },
-            required: ['type', 'xField', 'yField', 'data'],
+      parameters: z.object({
+        spec: z.object({
+          type: z.enum(['line', 'bar', 'area']).describe('The chart type'),
+          xField: z.string().describe('The field name for x-axis'),
+          yField: z.string().describe('The field name for y-axis'),
+          data: z
+            .object({
+              values: z.array(z.any()).describe('The data values'),
+            })
+            .describe('The data for the chart'),
+        }).describe(`The VChart spec.
             example: {
               type: 'line',
               xField: 'x',
@@ -64,11 +43,8 @@ export function addVChartTool() {
                   { x: 'C', y: 4 },
                 ],
               },
-            },
-          },
-        },
-        required: ['spec'],
-      },
+            }`),
+      }),
     },
     {
       type: 'function-render',

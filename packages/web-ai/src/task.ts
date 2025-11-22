@@ -97,7 +97,7 @@ export default class Task {
         id: this.taskId || undefined,
         prompt,
         historyMessages: this.toHistoryMessage(),
-        functionTools: toolManager.getTools(this.pickToolNames),
+        functionTools: toolManager.getJsonSchemaTools(this.pickToolNames),
         signal: this.controller.signal,
       },
       (data) => {
@@ -303,6 +303,21 @@ export default class Task {
       },
     };
 
+    if (toolInstance) {
+      const tool = toolManager.getTool(toolCall.function.name);
+      const p = tool?.function.parameters;
+      if (p) {
+        const res = p.safeParse(toolCall.function.arguments);
+        if (!res.success) {
+          toolCallInstance.running = false;
+          toolCallInstance.result = {
+            type: 'result',
+            content: res.error.issues,
+          };
+        }
+      }
+    }
+
     for (let i = this.messages.length - 1; i >= 0; i--) {
       const item = this.messages[i];
       if (item.role === 'assistant' && item.id === id) {
@@ -322,18 +337,22 @@ export default class Task {
       return;
     }
 
-    const res = await toolManager.executeToolCall(toolCall);
-    toolCallInstance.running = false;
-    toolCallInstance.result = res;
+    if (toolCallInstance.running) {
+      const res = await toolManager.executeToolCall(toolCall);
+      toolCallInstance.running = false;
+      toolCallInstance.result = res;
 
-    this.emit({
-      type: 'change-function-call',
-      messageId: id,
-      functionCall: toolCallInstance,
-    });
+      this.emit({
+        type: 'change-function-call',
+        messageId: id,
+        functionCall: toolCallInstance,
+      });
+    }
     await this.reportFunctionCallResult(
       toolCall.id,
-      res.content === undefined ? 'success' : res.content
+      toolCallInstance.result?.content === undefined
+        ? 'success'
+        : toolCallInstance.result.content
     );
   }
 
