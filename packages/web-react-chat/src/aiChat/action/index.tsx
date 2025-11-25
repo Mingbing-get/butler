@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 
-import useTask from '@/hooks/useTask';
-import useTaskStatus from '@/hooks/useTaskStatus';
-import useMessageList from '@/hooks/useMessageList';
+import useTask from '../../hooks/useTask';
+import useTaskStatus from '../../hooks/useTaskStatus';
+import useMessageList from '../../hooks/useMessageList';
 import SendIcon from './icons/send';
 import MagicStickIcon from './icons/magicStick';
 import CompressionIcon from './icons/compression';

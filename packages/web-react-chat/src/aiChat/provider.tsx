@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Task, type AIChat } from '@ai-nucl/web-ai';
 
-import { TaskContext } from '@/context/task';
+import { TaskContext } from '../context/task';
 
 interface Props {
   transporter: AIChat.Task.Transporter;

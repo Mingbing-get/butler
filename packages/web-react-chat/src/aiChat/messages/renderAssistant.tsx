@@ -1,8 +1,8 @@
-import MarkdownRender from '@/markdownRender';
+import MarkdownRender from '../../markdownRender';
 
-import useMessageContent from '@/hooks/useMessageContent';
-import useMessageRunning from '@/hooks/useMessageRunning';
-import useFunctionCallList from '@/hooks/useFunctionCallList';
+import useMessageContent from '../../hooks/useMessageContent';
+import useMessageRunning from '../../hooks/useMessageRunning';
+import useFunctionCallList from '../../hooks/useFunctionCallList';
 
 import RenderFunctionCall from './renderFunctionCall';
 import { useMemo } from 'react';

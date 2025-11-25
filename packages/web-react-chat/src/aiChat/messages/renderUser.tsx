@@ -1,5 +1,5 @@
-import useMessageContent from '@/hooks/useMessageContent';
-import MarkdownRender from '@/markdownRender';
+import useMessageContent from '../../hooks/useMessageContent';
+import MarkdownRender from '../../markdownRender';
 
 interface Props {
   messageId: string;

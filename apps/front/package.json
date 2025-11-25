@@ -16,7 +16,8 @@
     "@ai-nucl/web-tool-arco": "workspace:*",
     "classnames": "^2.5.1",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@arco-design/web-react": "^2.66.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

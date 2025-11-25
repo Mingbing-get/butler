@@ -11,6 +11,15 @@ import {
   Slider,
   Switch,
 } from '@arco-design/web-react';
+import '@arco-design/web-react/es/Input/style/css.js';
+import '@arco-design/web-react/es/InputNumber/style/css.js';
+import '@arco-design/web-react/es/Select/style/css.js';
+import '@arco-design/web-react/es/Radio/style/css.js';
+import '@arco-design/web-react/es/DatePicker/style/css.js';
+import '@arco-design/web-react/es/Checkbox/style/css.js';
+import '@arco-design/web-react/es/Rate/style/css.js';
+import '@arco-design/web-react/es/Slider/style/css.js';
+import '@arco-design/web-react/es/Switch/style/css.js';
 
 import { ToolForm } from './type';
 

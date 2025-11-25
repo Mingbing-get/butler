@@ -46,10 +46,5 @@ export default function createWebViteConfig(
         ],
       },
     },
-    resolve: {
-      alias: {
-        '@': '/src',
-      },
-    },
   };
 }

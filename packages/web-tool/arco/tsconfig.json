@@ -20,10 +20,7 @@
     "isolatedModules": true,
     "incremental": true,
     "types": ["node"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]

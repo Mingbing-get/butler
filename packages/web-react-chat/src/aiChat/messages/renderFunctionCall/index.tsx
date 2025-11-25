@@ -1,4 +1,4 @@
-import useFunctionCall from '@/hooks/useFunctionCall';
+import useFunctionCall from '../../../hooks/useFunctionCall';
 import ReRender from './reRender';
 import RenderResult from './result';
 

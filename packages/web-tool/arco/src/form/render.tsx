@@ -4,6 +4,9 @@ import fieldManager from './fieldManager';
 import { ToolForm } from './type';
 import { useCallback } from 'react';
 
+import '@arco-design/web-react/es/Form/style/css.js';
+import '@arco-design/web-react/es/Button/style/css.js';
+
 const FormItem = Form.Item;
 
 export default function ArcoForm({

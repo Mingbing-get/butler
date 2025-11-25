@@ -4,7 +4,8 @@
   "description": "Example application using AI Nucl packages",
   "private": true,
   "scripts": {
-    "dev": "nodemon ./src/index.ts",
+    "dev": "tsx watch ./src/index.ts",
+    "test": "tsx ./src/test.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "clean": "rm -rf dist",
@@ -13,6 +14,7 @@
   "dependencies": {
     "@ai-nucl/server-ai": "workspace:*",
     "@ai-nucl/server-tool-database": "workspace:*",
+    "@ai-nucl/server-db-meta": "workspace:*",
     "@koa/cors": "^5.0.0",
     "@koa/router": "^14.0.0",
     "dotenv": "^17.2.3",
@@ -28,8 +30,6 @@
     "@types/koa": "^3.0.1",
     "@types/koa__cors": "^5.0.1",
     "@types/koa__router": "^12.0.5",
-    "@types/koa-router": "^7.4.9",
-    "ts-node": "^10.9.2",
-    "nodemon": "^3.1.11"
+    "@types/koa-router": "^7.4.9"
   }
 }

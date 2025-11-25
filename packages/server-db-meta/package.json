@@ -1,7 +1,7 @@
 {
-  "name": "@ai-nucl/server-ai",
+  "name": "@ai-nucl/server-db-meta",
   "version": "1.0.0",
-  "description": "AI Nucl server AI functionality",
+  "description": "AI Nucl server DB meta functionality",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "types": "./src/index.ts",
@@ -24,7 +24,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "openai": "^6.8.1"
+    "knex": "^3.1.0"
   },
   "devDependencies": {
     "typescript": "^5.3.3",

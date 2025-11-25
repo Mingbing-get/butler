@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect } from 'react';
-import useMessageList from '@/hooks/useMessageList';
-import useStaskStatus from '@/hooks/useTaskStatus';
+import useMessageList from '../../hooks/useMessageList';
+import useStaskStatus from '../../hooks/useTaskStatus';
 
 import RenderAssistantMessage from './renderAssistant';
 import RenderUserMessage from './renderUser';
