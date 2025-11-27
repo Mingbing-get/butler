@@ -1,29 +1,12 @@
-import Router from '@koa/router';
+import { Middleware } from '@koa/router';
 import { Readable } from 'stream';
 import { Task, OpenAI } from '@ai-nucl/server-ai';
 
-import aiService from '../aiService';
+import aiService from '../../aiService';
 
-const taskMap = new Map<string, Task>();
-const aiRouter = new Router();
+export const taskMap = new Map<string, Task>();
 
-aiRouter.post('/generateText', async (ctx) => {
-  const { prompt, historyMessages } = ctx.request.body as {
-    prompt: string;
-    historyMessages?: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
-  };
-
-  const res = await aiService.createChatCompletion({
-    messages: [...(historyMessages || []), { role: 'user', content: prompt }],
-    context: {},
-    pickToolNames: [],
-  });
-
-  const text = res.choices[0]?.message?.content || '';
-  ctx.body = text;
-});
-
-aiRouter.post('/task', async (ctx) => {
+const task: Middleware = async (ctx) => {
   const { prompt, historyMessages, functionTools, id } = ctx.request.body as {
     prompt: string;
     historyMessages?: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
@@ -43,7 +26,9 @@ aiRouter.post('/task', async (ctx) => {
 
   // 创建Task实例
   const task = aiService.createTask({
-    context: {},
+    context: {
+      user: ctx.state.user,
+    },
     prompt,
     extraTools: functionTools,
     id,
@@ -95,22 +80,6 @@ aiRouter.post('/task', async (ctx) => {
 
   // 由于是流式响应，不返回常规的响应体
   ctx.body = stream;
-});
+};
 
-aiRouter.post('/functionCallResult', async (ctx) => {
-  const { taskId, callId, result } = ctx.request.body as {
-    taskId: string;
-    callId: string;
-    result: any;
-  };
-  const task = taskMap.get(taskId);
-  if (!task) {
-    ctx.status = 404;
-    ctx.body = { message: 'Task not found' };
-    return;
-  }
-  task.resolveToolCall(callId, result);
-  ctx.body = { message: 'success' };
-});
-
-export default aiRouter;
+export default task;

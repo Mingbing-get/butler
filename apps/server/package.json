@@ -23,6 +23,8 @@
     "mysql2": "^3.9.1",
     "crypto-js": "^4.2.0",
     "koa-jwt": "^4.0.4",
+    "koa-mount": "^4.2.0",
+    "koa-static": "^5.0.0",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
@@ -34,6 +36,8 @@
     "@types/koa__router": "^12.0.5",
     "@types/koa-router": "^7.4.9",
     "@types/crypto-js": "^4.2.2",
-    "@types/jsonwebtoken": "^9.0.6"
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/koa-mount": "^4.0.5",
+    "@types/koa-static": "^4.0.4"
   }
 }

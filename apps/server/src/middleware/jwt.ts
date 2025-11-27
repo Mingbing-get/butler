@@ -1,14 +1,13 @@
-import Router from 'koa-router';
+import { Middleware } from '@koa/router';
 import { sign, decode, JwtPayload } from 'jsonwebtoken';
+
 import { InJwtUser } from '../type/user';
 
 export function signJwt(data: any) {
   return sign(data, process.env.JWT_SECRET || '', { expiresIn: '24h' });
 }
 
-export const jwtVerify: Router.IMiddleware<{
-  user: InJwtUser;
-}> = async (ctx, next) => {
+export const jwtVerify: Middleware = async (ctx, next) => {
   const wUser = ctx.request.headers['nucl-user'] as string;
   const jwtPayload = decode(wUser);
 
@@ -17,6 +16,9 @@ export const jwtVerify: Router.IMiddleware<{
 
     ctx.state.user = user;
     await next();
+  } else {
+    ctx.status = 401;
+    ctx.body = { code: 401, message: 'Unauthorized' };
   }
 };
 
