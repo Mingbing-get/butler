@@ -97,10 +97,16 @@ export default class DatabaseManager {
     });
 
     columnList.forEach((item) => {
-      const [action, table, column] = item.split('.');
-      const tableWithColumn = tableWithColumns.find(
-        (item) => item.table === table && item.action === action
-      );
+      const [action, table, column] = item.split('::');
+
+      const tableWithColumn = tableWithColumns.find((item) => {
+        if (item.action !== action) {
+          return false;
+        }
+
+        return item.table === table || table === 'null';
+      });
+
       if (tableWithColumn) {
         tableWithColumn.columns?.push(column);
       }

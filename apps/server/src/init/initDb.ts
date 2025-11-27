@@ -70,10 +70,9 @@ async function initRoleTable(tables: DbMeta.Table[]) {
       id: (table) => table.bigInteger('id').unsigned().primary(),
       name: (table) => table.string('name').unique(),
       description: (table) => table.string('description'),
-      databaseSources: (table) => table.json('databaseSources'), // [1,2,3]
-      apiSources: (table) => table.json('apiSources'), // [1,2,3]
+      databaseSources: (table) => table.json('databaseSources'), // ['1::select:update','2::delete','3::insert']
+      apiSources: (table) => table.json('apiSources'), // ['1','2','3']
       users: (table) => table.json('users'), // [1,2,3]
-      action: (table) => table.json('action').notNullable(), // ['select', 'insert', 'update', 'delete']
     },
   });
 }

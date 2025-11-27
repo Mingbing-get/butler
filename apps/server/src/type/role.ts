@@ -2,8 +2,7 @@ export interface Role {
   id: number;
   name: string;
   description?: string;
-  databaseSources?: number[];
-  apiSources?: number[];
+  databaseSources?: string[];
+  apiSources?: string[];
   users?: number[];
-  action: string[];
 }

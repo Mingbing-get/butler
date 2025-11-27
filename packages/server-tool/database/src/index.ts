@@ -3,6 +3,7 @@ import { AIService, AiNucl } from '@ai-nucl/server-ai';
 import { default as DatabaseManager } from './databaseManager';
 
 export { DatabaseManager };
+export * from './type';
 
 declare module '@ai-nucl/server-ai' {
   export namespace AiNucl {
