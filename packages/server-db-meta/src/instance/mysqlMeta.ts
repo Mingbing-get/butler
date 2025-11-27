@@ -13,13 +13,14 @@ export default class MySqlMetaInstance implements DbMeta.Instance {
 
   async getTableColumns(tableName: string): Promise<DbMeta.Column[]> {
     const result = await this.db.raw(`SHOW COLUMNS FROM \`${tableName}\``);
+
     return result[0].map((row: any) => ({
       name: row.Field,
       type: row.Type,
-      isPrimaryKey: row.Key === 'PRI',
-      isUnique: row.Key === 'UNI',
-      isNullable: row.Null === 'YES',
+      key: row.Key,
+      nullable: row.Null,
       defaultValue: row.Default,
+      extra: row.Extra,
     }));
   }
 }

@@ -8,14 +8,10 @@ export namespace DbMeta {
     name: string;
     description?: string;
     type: string;
-    isPrimaryKey?: boolean;
-    isUnique?: boolean;
-    isNullable?: boolean;
+    key?: string;
+    nullable?: string;
     defaultValue?: string;
-    references?: {
-      table: string;
-      column: string;
-    };
+    extra?: string;
   }
 
   export interface Instance {
