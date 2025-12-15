@@ -9,7 +9,7 @@ interface HttpRequestOptions {
 type Functionable<T> = T | (() => T);
 
 interface Options {
-  simpleChartRequestOptions: Functionable<HttpRequestOptions>;
+  simpleChatRequestOptions: Functionable<HttpRequestOptions>;
   startTaskRequestOptions: Functionable<HttpRequestOptions>;
   reportFunctionCallResultRequestOptions: Functionable<HttpRequestOptions>;
 }
@@ -21,11 +21,11 @@ export class HttpTransporter implements AIChat.Task.Transporter {
     this.options = options;
   }
 
-  async simpleChart(options: {
+  async simpleChat(options: {
     prompt: string;
     historyMessages?: AIChat.HistoryChatMessage[];
   }) {
-    let requestOptions = this.options.simpleChartRequestOptions;
+    let requestOptions = this.options.simpleChatRequestOptions;
     if (typeof requestOptions === 'function') {
       requestOptions = requestOptions();
     }
@@ -40,7 +40,7 @@ export class HttpTransporter implements AIChat.Task.Transporter {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to simple chart');
+      throw new Error('Failed to simple chat');
     }
 
     return response.text();

@@ -1,31 +1,24 @@
 import classNames from 'classnames';
-import type { AIChat } from '@ai-nucl/web-ai';
 
 import Messages from './messages';
-import Action from './action';
-import Provider from './provider';
+import Action, { ChatActionProps } from './action';
 
 import './index.scss';
 
-interface Props {
-  transporter: AIChat.Task.Transporter;
+interface Props extends ChatActionProps {
   className?: string;
   style?: React.CSSProperties;
-  pickToolNames?: AIChat.FunctionTool.PluginName[];
 }
 
 export default function AIChatRender({
-  transporter,
   className,
   style,
-  pickToolNames,
+  quickQuestions,
 }: Props) {
   return (
-    <Provider transporter={transporter} pickToolNames={pickToolNames}>
-      <div className={classNames('ai-chart', className)} style={style}>
-        <Messages />
-        <Action />
-      </div>
-    </Provider>
+    <div className={classNames('ai-chart', className)} style={style}>
+      <Messages />
+      <Action quickQuestions={quickQuestions} />
+    </div>
   );
 }

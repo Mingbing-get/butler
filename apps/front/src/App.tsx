@@ -1,4 +1,4 @@
-import { AIChatRender } from '@ai-nucl/web-react-chat';
+import { AIChatRender, AIChatProvider } from '@ai-nucl/web-react-chat';
 import { HttpTransporter } from '@ai-nucl/web-ai';
 import { addVChartTool } from '@ai-nucl/web-tool-vchart';
 import { addArcoFormTool } from '@ai-nucl/web-tool-arco';
@@ -10,11 +10,11 @@ addVChartTool();
 addArcoFormTool();
 
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0NTA5MzMyNzY5MjgsIm5hbWUiOiJudWNsIiwibmlja05hbWUiOiJudWNsIiwic3RhdHVzIjoiYWN0aXZlIiwicm9sZXMiOlsxXSwiaXNTdXBlckFkbWluIjp0cnVlfSwiaWF0IjoxNzY0MjI4MzE2LCJleHAiOjE3NjQzMTQ3MTZ9.zM86igOF8IcvomzpgJp8mD98WsmZ-oUKELfr2_T3X78';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxOTE1ODIyOTQwNDE2LCJuYW1lIjoibnVjbCIsIm5pY2tOYW1lIjoibnVjbCIsInN0YXR1cyI6ImFjdGl2ZSIsInJvbGVzIjpbMV0sImlzU3VwZXJBZG1pbiI6dHJ1ZX0sImlhdCI6MTc2NTc2NDM4OSwiZXhwIjoxNzY1ODUwNzg5fQ.USWAuZAL7xD0SFa22fOAwm7LhL7QZ6VQLgZ8tCibvW0';
 
 const baseUrl = 'http://localhost:3100';
 const httpTransporter = new HttpTransporter({
-  simpleChartRequestOptions: {
+  simpleChatRequestOptions: {
     url: `${baseUrl}/ai/generateText`,
     headers: {
       'Content-Type': 'application/json',
@@ -47,7 +47,14 @@ function App() {
         paddingBottom: '1rem',
       }}
     >
-      <AIChatRender transporter={httpTransporter} />
+      <AIChatProvider transporter={httpTransporter}>
+        <AIChatRender
+          quickQuestions={[
+            { prompt: '分析用户年龄，并绘制年龄分布图', render: '分析年龄' },
+            { prompt: '分析用户性别，并绘制性别分布图', render: '分析性别' },
+          ]}
+        />
+      </AIChatProvider>
     </div>
   );
 }

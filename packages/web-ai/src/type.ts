@@ -216,7 +216,7 @@ export namespace AIChat {
 
     // 定义transpoter
     export interface Transporter {
-      simpleChart: (options: {
+      simpleChat: (options: {
         prompt: string;
         historyMessages?: HistoryChatMessage[];
       }) => Promise<string>;

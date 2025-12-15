@@ -1,18 +1,45 @@
-.ai-chart-action {
+.ai-chat-action {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.5rem;
+  position: relative;
 
   border: 1px solid #dcdfe6;
   border-radius: 0.5rem;
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
 
-  &:has(.ai-chart-action-input:focus) {
+  .ai-chat-quick-question-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 0.5rem;
+    overflow-x: auto;
+    width: 100%;
+    backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.05);
+
+    .ai-chat-quick-question-item {
+      padding: 0.5rem;
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+  }
+
+  &:has(.ai-chat-action-input:focus) {
     border-color: #409eff;
   }
 
-  .ai-chart-action-input {
+  .ai-chat-action-input {
     flex: 1;
     border: none;
     resize: none;
@@ -27,7 +54,7 @@
     gap: 0.5rem;
   }
 
-  .ai-chart-action-button {
+  .ai-chat-action-button {
     position: relative;
     padding: 0.4rem 0.8rem;
     border: none;

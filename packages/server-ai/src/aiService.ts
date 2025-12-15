@@ -214,9 +214,11 @@ export default class AIService {
     tools: Array<OpenAI.Chat.Completions.ChatCompletionFunctionTool>
   ): OpenAI.Chat.Completions.ChatCompletionSystemMessageParam {
     const toolStrMap = tools.map((tool) => {
-      return `- 工具名称：${tool.function.name}
-      - 工具描述：${tool.function.description}
-      - 工具参数：${JSON.stringify(tool.function.parameters || {}, null, 2)}`;
+      return `  <tool>
+    <toolName>${tool.function.name}</toolName>
+    <toolDescription>${tool.function.description}</toolDescription>
+    <toolParameters>${JSON.stringify(tool.function.parameters || {}, null, 2)}</toolParameters>
+  </tool>`;
     });
 
     const tip = `你是一个智能助手，可以通过调用工具来回答问题。请遵循以下步骤：
@@ -224,7 +226,7 @@ export default class AIService {
 2. 若有需要可从下面的工具列表中选择最合适的工具。
 3. 严格按照以下格式输出，不要有任何其他额外说明(注意：仅可选择已提供的工具，arguments必须为一个object，且严格遵循tool的参数定义，若不需要参数也必须返回一个空的object)：
 
-其他非工具的回答
+其他非工具的回答(注意, 这里回答的内容不可包含工具信息、不能出现工具名称、参数等)
 ${ParseStream.START_TOOL_CALL}
 {
   "name": "get_weather",
@@ -233,7 +235,9 @@ ${ParseStream.START_TOOL_CALL}
 ${ParseStream.END_TOOL_CALL}
 
 可用工具：
+<tools>
 ${toolStrMap.join('\n')}
+</tools>
 `;
 
     return {

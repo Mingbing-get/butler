@@ -11,7 +11,16 @@ import StopIcon from './icons/stop';
 
 import './index.scss';
 
-export default function Action() {
+interface QuickQuestion {
+  render: React.ReactNode;
+  prompt: string;
+}
+
+export interface ChatActionProps {
+  quickQuestions?: QuickQuestion[];
+}
+
+export default function Action({ quickQuestions }: ChatActionProps) {
   const [inputValue, setInputValue] = useState('');
   const task = useTask();
   const status = useTaskStatus();
@@ -31,7 +40,7 @@ export default function Action() {
     if (!transporter) return;
 
     setPrefPromptLoading(true);
-    const text = await transporter.simpleChart({
+    const text = await transporter.simpleChat({
       prompt: inputValue,
       historyMessages: [
         {
@@ -54,7 +63,7 @@ export default function Action() {
     if (!transporter) return;
 
     setCompressionLoading(true);
-    const text = await transporter.simpleChart({
+    const text = await transporter.simpleChat({
       prompt:
         '帮我总结一下最近的对话，仅保留主要的对话内容，结果尽量精简；注意不要生成任何与对话无关的信息，不需要添加任何解释。',
       historyMessages: historyMessages,
@@ -100,11 +109,33 @@ export default function Action() {
     return lastMessage.role !== 'system' && lastMessage.role !== 'developer';
   }, [messageList]);
 
+  const showQuickQuestion = useMemo(() => {
+    return (
+      status !== 'running' &&
+      !!quickQuestions?.length &&
+      !compressionLoading &&
+      !prefPromptLoading
+    );
+  }, [status, compressionLoading, prefPromptLoading, quickQuestions]);
+
   return (
-    <div className="ai-chart-action">
+    <div className="ai-chat-action">
+      {showQuickQuestion && (
+        <div className="ai-chat-quick-question-list">
+          {(quickQuestions || []).map((item) => (
+            <div
+              onClick={() => task.send(item.prompt)}
+              className="ai-chat-quick-question-item"
+              key={item.prompt}
+            >
+              {item.render}
+            </div>
+          ))}
+        </div>
+      )}
       <textarea
         rows={2}
-        className="ai-chart-action-input"
+        className="ai-chat-action-input"
         disabled={status === 'running'}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
@@ -112,7 +143,7 @@ export default function Action() {
       />
       <div className="action-buttons">
         <button
-          className={classNames('ai-chart-action-button', {
+          className={classNames('ai-chat-action-button', {
             'is-loading': compressionLoading,
           })}
           disabled={
@@ -123,7 +154,7 @@ export default function Action() {
           <CompressionIcon />
         </button>
         <button
-          className={classNames('ai-chart-action-button', {
+          className={classNames('ai-chat-action-button', {
             'is-loading': prefPromptLoading,
           })}
           disabled={!inputValue || prefPromptLoading || status === 'running'}
@@ -132,7 +163,7 @@ export default function Action() {
           <MagicStickIcon />
         </button>
         <button
-          className="ai-chart-action-button"
+          className="ai-chat-action-button"
           disabled={!inputValue && status !== 'running'}
           onClick={handleSendOrStop}
         >
